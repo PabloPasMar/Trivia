@@ -1380,5 +1380,39 @@ window.onload = function(){
 
 </script>
 
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+addDoc,
+getDocs
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAqw-qaPq008EjZLLy79DdMupTBdARzDek",
+  authDomain: "trivia-9a8d6.firebaseapp.com",
+  projectId: "trivia-9a8d6",
+  storageBucket: "trivia-9a8d6.firebasestorage.app",
+  messagingSenderId: "1008624477662",
+  appId: "1:1008624477662:web:6099bf7bb955a7549f294f",
+  measurementId: "G-6QRHTTC8Q2"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+window.db = db;
+window.collection = collection;
+window.addDoc = addDoc;
+window.getDocs = getDocs;
+
+console.log("Firebase conectado");
+
+</script>
+
 </body>
 </html>
