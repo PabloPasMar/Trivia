@@ -768,76 +768,216 @@ Volver al Menú Principal
 <script>
 
 
-let preguntas = JSON.parse(localStorage.getItem("preguntas")) || [
+let preguntas = [
 
 {
-pregunta:"¿Cuál es el hueso más largo del cuerpo humano?",
-opciones:["Fémur","Tibia","Húmero","Radio"],
+pregunta:"¿Qué propiedad permite al agua actuar como solvente universal?",
+opciones:["Polaridad","Color","Densidad","Viscosidad"],
 respuesta:0,
-explicacion:"El fémur se encuentra en el muslo y conecta la cadera con la rodilla. Es el hueso más largo y resistente del cuerpo humano. Su función principal es soportar el peso corporal y permitir movimientos como caminar, correr y saltar."
+explicacion:"La polaridad del agua le permite disolver gran cantidad de sustancias y facilitar reacciones químicas."
 },
 
 {
-pregunta:"¿Qué órgano bombea sangre?",
-opciones:["Pulmón","Riñón","Corazón","Hígado"],
+pregunta:"¿Qué proceso metabólico utiliza agua para romper moléculas?",
+opciones:["Fotosíntesis","Hidrólisis","Fermentación","Difusión"],
+respuesta:1,
+explicacion:"La hidrólisis utiliza moléculas de agua para dividir compuestos complejos."
+},
+
+{
+pregunta:"¿Qué elemento es la base de las moléculas orgánicas?",
+opciones:["Oxígeno","Carbono","Sodio","Calcio"],
+respuesta:1,
+explicacion:"El carbono puede formar múltiples enlaces y constituye la base química de la vida."
+},
+
+{
+pregunta:"¿Qué elemento forma parte del ATP, ADN y ARN?",
+opciones:["Fósforo","Hierro","Magnesio","Azufre"],
+respuesta:0,
+explicacion:"El fósforo es esencial para el almacenamiento y transferencia de energía celular."
+},
+
+{
+pregunta:"¿Cuál es la unidad fundamental de la vida?",
+opciones:["Átomo","Molécula","Célula","Tejido"],
 respuesta:2,
-explicacion:"El corazón es un órgano muscular situado en el centro del tórax, ligeramente hacia la izquierda. Su función es bombear sangre a todo el cuerpo para transportar oxígeno y nutrientes a los tejidos y eliminar sustancias de desecho."
+explicacion:"La célula es la estructura viva más pequeña capaz de realizar funciones vitales."
 },
 
 {
-pregunta:"¿Qué órgano filtra la sangre?",
-opciones:["Pulmón","Riñón","Corazón","Páncreas"],
+pregunta:"¿Qué célula carece de núcleo definido?",
+opciones:["Eucariota","Procariota","Vegetal","Animal"],
 respuesta:1,
-explicacion:"Los riñones están ubicados en la parte posterior del abdomen, uno a cada lado de la columna vertebral. Filtran la sangre para eliminar desechos y exceso de agua mediante la producción de orina. También ayudan a regular la presión arterial y el equilibrio de minerales."
+explicacion:"Las células procariotas no poseen núcleo rodeado por membrana."
 },
 
 {
-pregunta:"¿Cuál es el órgano principal del sistema nervioso?",
-opciones:["Riñón","Cerebro","Pulmón","Estómago"],
+pregunta:"¿Qué nivel sigue después del nivel celular?",
+opciones:["Sistema","Tejido","Órgano","Población"],
 respuesta:1,
-explicacion:"El cerebro se encuentra dentro del cráneo y es el centro de control del cuerpo. Procesa la información que llega desde los sentidos y coordina funciones como el pensamiento, la memoria, el lenguaje, las emociones y los movimientos voluntarios."
+explicacion:"Las células se agrupan para formar tejidos."
 },
 
 {
-pregunta:"¿Qué huesos protegen los pulmones?",
-opciones:["Costillas","Radio","Tibia","Clavícula"],
+pregunta:"¿Qué nivel está formado por varios tejidos?",
+opciones:["Órgano","Población","Comunidad","Biosfera"],
 respuesta:0,
-explicacion:"Las costillas forman la caja torácica, una estructura ósea que rodea y protege órganos vitales como los pulmones y el corazón. Además participan en los movimientos respiratorios al expandirse y contraerse durante la respiración."
+explicacion:"Los órganos están constituidos por tejidos relacionados funcionalmente."
 },
 
 {
-pregunta:"¿Dónde se encuentra la tibia?",
-opciones:["Brazo","Pierna","Cuello","Cráneo"],
+pregunta:"¿Qué nivel incluye a todos los ecosistemas del planeta?",
+opciones:["Comunidad","Población","Biosfera","Organismo"],
+respuesta:2,
+explicacion:"La biosfera comprende todas las zonas donde existe vida."
+},
+
+{
+pregunta:"¿Cuál es una propiedad característica de los seres vivos?",
+opciones:["Cristalización","Homeostasis","Evaporación","Combustión"],
 respuesta:1,
-explicacion:"La tibia se localiza en la pierna, entre la rodilla y el tobillo. Es uno de los principales huesos que soportan el peso corporal y proporciona estabilidad al caminar, correr y mantenerse de pie."
+explicacion:"La homeostasis permite mantener condiciones internas estables."
 },
 
 {
-pregunta:"¿Qué estructura conecta músculos y huesos?",
-opciones:["Ligamentos","Tendones","Nervios","Cartílago"],
+pregunta:"¿Qué propiedad permite responder a cambios del ambiente?",
+opciones:["Mutación","Reactividad","Fotosíntesis","Respiración"],
 respuesta:1,
-explicacion:"Los tendones son estructuras resistentes formadas por tejido conectivo. Su función es unir los músculos a los huesos y transmitir la fuerza generada por los músculos para producir movimiento."
+explicacion:"Los seres vivos responden a estímulos internos y externos."
 },
 
 {
-pregunta:"¿Cuál es el músculo principal de la respiración?",
-opciones:["Trapecio","Diafragma","Glúteo","Bíceps"],
+pregunta:"¿Cómo se llama la capacidad de las poblaciones de cambiar con el tiempo?",
+opciones:["Homeostasis","Nutrición","Evolución","Digestión"],
+respuesta:2,
+explicacion:"La evolución permite adaptarse a presiones ambientales."
+},
+
+{
+pregunta:"¿Qué científico desarrolló la nomenclatura binomial?",
+opciones:["Darwin","Mendel","Linneo","Pasteur"],
+respuesta:2,
+explicacion:"Carlos Linneo estableció el sistema moderno de clasificación biológica."
+},
+
+{
+pregunta:"¿Cuántos nombres posee una especie en la nomenclatura binomial?",
+opciones:["1","2","3","4"],
 respuesta:1,
-explicacion:"El diafragma es un músculo en forma de cúpula situado entre el tórax y el abdomen. Cuando se contrae permite que los pulmones se expandan y se llenen de aire. Es el músculo más importante en el proceso respiratorio."
+explicacion:"Se utilizan género y especie."
 },
 
 {
-pregunta:"¿Qué órgano produce la bilis?",
-opciones:["Hígado","Pulmón","Riñón","Bazo"],
+pregunta:"¿Cuál es el nivel taxonómico más específico?",
+opciones:["Reino","Clase","Género","Especie"],
+respuesta:3,
+explicacion:"La especie es la categoría taxonómica más específica."
+},
+
+{
+pregunta:"¿Cuál NO es uno de los tres dominios?",
+opciones:["Bacteria","Archaea","Animalia","Eukarya"],
+respuesta:2,
+explicacion:"Animalia es un reino, no un dominio."
+},
+
+{
+pregunta:"¿Qué dominio contiene a plantas y animales?",
+opciones:["Archaea","Bacteria","Eukarya","Virus"],
+respuesta:2,
+explicacion:"Todos los organismos eucariotas pertenecen al dominio Eukarya."
+},
+
+{
+pregunta:"¿Qué es un ancestro común?",
+opciones:["Un fósil","Un organismo del que descienden varios grupos","Un depredador","Un ecosistema"],
+respuesta:1,
+explicacion:"Representa el origen compartido entre diferentes linajes."
+},
+
+{
+pregunta:"¿Qué ocurre en la divergencia evolutiva?",
+opciones:["Las especies se vuelven idénticas","Las líneas evolutivas se separan","Desaparecen organismos","No hay cambios"],
+respuesta:1,
+explicacion:"Las poblaciones evolucionan de forma diferente a partir de un ancestro común."
+},
+
+{
+pregunta:"¿Qué factor puede provocar divergencia evolutiva?",
+opciones:["Aislamiento geográfico","Color corporal","Tamaño celular","Temperatura corporal"],
 respuesta:0,
-explicacion:"El hígado se encuentra en la parte superior derecha del abdomen y es uno de los órganos más importantes del metabolismo. Produce bilis, una sustancia que ayuda a digerir las grasas, además de almacenar nutrientes y eliminar sustancias tóxicas."
+explicacion:"El aislamiento favorece la acumulación de diferencias evolutivas."
 },
 
 {
-pregunta:"¿Cuál es el órgano más grande del cuerpo?",
-opciones:["Piel","Corazón","Pulmón","Cerebro"],
+pregunta:"¿Qué representan las ramificaciones de un árbol filogenético?",
+opciones:["Extinciones","Eventos de divergencia","Mutaciones","Reproducción"],
+respuesta:1,
+explicacion:"Cada rama representa una separación evolutiva."
+},
+
+{
+pregunta:"¿Qué tipo de evolución presentan la orca y el tiburón?",
+opciones:["Divergente","Convergente","Artificial","Genética"],
+respuesta:1,
+explicacion:"Desarrollaron características similares pese a tener orígenes distintos."
+},
+
+{
+pregunta:"¿Qué es la coevolución?",
+opciones:["Cambio de un individuo","Influencia evolutiva mutua entre especies","Extinción masiva","Mutación genética"],
+respuesta:1,
+explicacion:"Dos especies influyen recíprocamente en su evolución."
+},
+
+{
+pregunta:"¿Qué estructura almacena ADN en la célula vegetal?",
+opciones:["Mitocondria","Núcleo","Cloroplasto","Vacuola"],
+respuesta:1,
+explicacion:"El núcleo contiene la información genética."
+},
+
+{
+pregunta:"¿Dónde ocurre la fotosíntesis?",
+opciones:["Mitocondria","Vacuola","Cloroplasto","Núcleo"],
+respuesta:2,
+explicacion:"Los cloroplastos contienen clorofila para captar energía solar."
+},
+
+{
+pregunta:"¿Qué organelo produce energía para la célula?",
+opciones:["Ribosoma","Mitocondria","Nucléolo","Pared celular"],
+respuesta:1,
+explicacion:"La mitocondria libera energía a partir de nutrientes."
+},
+
+{
+pregunta:"¿Cuál es la función principal de la vacuola?",
+opciones:["Fabricar proteínas","Almacenar agua y nutrientes","Copiar ADN","Generar ATP"],
+respuesta:1,
+explicacion:"La vacuola almacena sustancias y mantiene la turgencia celular."
+},
+
+{
+pregunta:"¿Qué organelo sintetiza proteínas?",
+opciones:["Ribosoma","Vacuola","Cloroplasto","Pared celular"],
 respuesta:0,
-explicacion:"La piel es el órgano más grande del cuerpo humano y recubre toda su superficie. Actúa como barrera protectora frente a microorganismos, ayuda a regular la temperatura corporal y permite percibir estímulos como el tacto, la presión y el dolor."
+explicacion:"Los ribosomas fabrican proteínas necesarias para la célula."
+},
+
+{
+pregunta:"¿Los virus pueden reproducirse por sí solos?",
+opciones:["Sí","No"],
+respuesta:1,
+explicacion:"Los virus necesitan la maquinaria celular de un huésped para replicarse."
+},
+
+{
+pregunta:"¿Por qué existe debate sobre si los virus están vivos?",
+opciones:["Porque son grandes","Porque carecen de ADN","Porque no realizan funciones vitales de forma autónoma","Porque tienen núcleo"],
+respuesta:2,
+explicacion:"Los virus pueden reproducirse y relacionarse, pero dependen de células para hacerlo."
 }
 
 ];
