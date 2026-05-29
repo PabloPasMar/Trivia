@@ -681,6 +681,21 @@ style="display:none;">
 <h2>
 Panel de Administración
 </h2>
+```html
+<button
+class="btn-secundario"
+style="
+width:auto;
+float:right;
+margin-top:0;
+margin-bottom:20px;"
+onclick="volverMenuPrincipal()">
+
+Salir
+
+</button>
+```
+
 
 <input
 type="text"
@@ -1329,6 +1344,7 @@ function mostrarPanelAdmin(){
     }
 }
 
+
 function volverMenuPrincipal(){
 
     document.getElementById("panelAdmin")
@@ -1336,7 +1352,15 @@ function volverMenuPrincipal(){
 
     document.getElementById("inicio")
     .style.display="block";
+
+    document.getElementById("menuInicio")
+    .style.display="flex";
+
+    document.getElementById("passwordAdmin")
+    .value = "";
 }
+
+
 
 
 async function agregarPregunta(){
