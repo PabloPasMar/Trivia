@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Trivia de Anatomía</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Segoe UI', sans-serif;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(15,23,42,0.92),
+    rgba(30,41,59,0.92)
+    ),
+    url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1600');
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+}
+
+.contenedor{
+
+    width:900px;
+    max-width:100%;
+
+    background:rgba(255,255,255,0.97);
+
+    border-radius:28px;
+
+    padding:35px;
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,0.35);
+
+    position:relative;
+}
+
+h1{
+
+    text-align:center;
+
+    color:#0f172a;
+
+    margin-bottom:30px;
+
+    font-size:40px;
+}
+
+h2{
+
+    color:#0f172a;
+
+    margin-bottom:20px;
+
+    line-height:1.5;
+}
+
+.esquina-superior{
+
+    position:absolute;
+
+    top:20px;
+    right:20px;
+
+    display:flex;
+
+    gap:12px;
+}
+
+.menu-mini{
+
+    position:relative;
+}
+
+.boton-mini{
+
+    border:none;
+
+    background:#f1f5f9;
+
+    padding:12px 20px;
+
+    border-radius:50px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    color:#0f172a;
+
+    transition:0.3s;
+}
+
+.boton-mini:hover{
+
+    background:#dbeafe;
+}
+
+.popup{
+
+    position:absolute;
+
+    top:60px;
+    right:0;
+
+    width:430px;
+
+    background:white;
+
+    border-radius:24px;
+
+    padding:30px;
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,0.2);
+
+    display:none;
+
+    z-index:999;
+}
+
+.menu-mini:hover .popup{
+
+    display:block;
+}
+
+.popup h3{
+
+    margin-bottom:20px;
+
+    color:#0f172a;
+
+    font-size:28px;
+}
+
+.popup p{
+
+    line-height:2;
+
+    color:#334155;
+
+    font-size:17px;
+}
+
+input,
+select{
+
+    width:100%;
+
+    padding:15px;
+
+    border-radius:16px;
+
+    border:1px solid #cbd5e1;
+
+    margin-top:15px;
+
+    font-size:16px;
+
+    background:#f8fafc;
+}
+
+button{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:16px;
+
+    margin-top:18px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    transition:0.3s;
+}
+
+.btn{
+
+    background:#0f172a;
+
+    color:white;
+}
+
+.btn:hover{
+
+    background:#1e293b;
+}
+
+.btn-secundario{
+
+    background:#e2e8f0;
+
+    color:#0f172a;
+}
+
+.barra{
+
+    width:100%;
+
+    height:22px;
+
+    background:#e2e8f0;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    margin-bottom:30px;
+}
+
+.progreso{
+
+    height:100%;
+
+    width:0%;
+
+    background:
+    linear-gradient(
+    90deg,
+    #2563eb,
+    #0ea5e9);
+
+    transition:0.4s;
+}
+
+.opcion{
+
+    background:#1e293b;
+
+    color:white;
+}
+
+.opcion:hover{
+
+    background:#334155;
+}
+
+.correcta{
+
+    background:#15803d !important;
+}
+
+.incorrecta{
+
+    background:#b91c1c !important;
+}
+
+.resultado{
+
+    margin-top:20px;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    color:#0f172a;
+}
+
+.refuerzo{
+
+    margin-top:20px;
+
+    background:#f8fafc;
+
+    padding:22px;
+
+    border-radius:20px;
+
+    line-height:1.9;
+
+    color:#334155;
+
+    border-left:6px solid #2563eb;
+}
+
+
+#btnSiguiente{
+
+    display:none;
+}
+
+.top{
+
+    margin-top:30px;
+
+    background:#f8fafc;
+
+    padding:28px;
+
+    border-radius:24px;
+
+    border:1px solid #e2e8f0;
+}
+
+.top h3{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+    color:#0f172a;
+
+    font-size:28px;
+}
+
+.podio{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:flex-end;
+
+    gap:20px;
+
+    margin-top:30px;
+
+    flex-wrap:nowrap;
+}
+
+.podio-columna{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+}
+
+.podio-item{
+
+    width:180px;
+
+    border-radius:20px 20px 0 0;
+
+    color:white;
+
+    font-weight:bold;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
+    text-align:center;
+}
+
+.primero{
+
+    background:#f59e0b;
+
+    height:260px;
+}
+
+.segundo{
+
+    background:#94a3b8;
+
+    height:210px;
+}
+
+.tercero{
+
+    background:#b45309;
+
+    height:180px;
+}
+
+.nombre-podio{
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    margin-bottom:10px;
+
+    color:#0f172a;
+}
+
+.lista-top{
+
+    margin-top:35px;
+}
+
+.item-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:white;
+
+    padding:16px;
+
+    border-radius:14px;
+
+    margin-bottom:12px;
+
+    box-shadow:
+    0 4px 10px rgba(0,0,0,0.05);
+}
+
+.posicion{
+
+    font-size:24px;
+
+    font-weight:bold;
+}
+
+.puntos{
+
+    margin-top:10px;
+}
+
+#panelAdmin{
+
+    display:none;
+
+    margin-top:20px;
+
+    background:#f8fafc;
+
+    padding:30px;
+
+    border-radius:24px;
+
+    border:1px solid #e2e8f0;
+}
+
+@media(max-width:768px){
+
+    .contenedor{
+
+        padding:25px;
+    }
+
+    .popup{
+
+        width:300px;
+    }
+
+    .esquina-superior{
+
+        position:static;
+
+        justify-content:center;
+
+        margin-bottom:20px;
+    }
+
+    .podio{
+
+        flex-direction:column;
+
+        align-items:center;
+    }
+
+    .podio-item{
+
+        width:100%;
+    }
+
+    .podio-columna{
+
+        width:100%;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+<div class="esquina-superior"
+id="menuInicio">
+
+<div class="menu-mini">
+
+<button class="boton-mini">
+Reglas
+</button>
+
+<div class="popup">
+
+<h3>
+Instrucciones del Juego
+</h3>
+
+<p>
+
+• Cada respuesta correcta suma 10 puntos.<br><br>
+
+• Cada respuesta incorrecta resta 5 puntos.<br><br>
+
+• Las preguntas aparecen en orden aleatorio.<br><br>
+
+• Después de responder podrás leer una explicación antes de continuar.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="menu-mini">
+
+<button class="boton-mini">
+Administrador
+</button>
+
+<div class="popup">
+
+<input
+type="password"
+id="passwordAdmin"
+placeholder="Contraseña">
+
+<button
+class="btn"
+onclick="mostrarPanelAdmin()">
+
+Ingresar
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<h1>
+Trivia de Anatomía
+</h1>
+
+<div id="inicio">
+
+<input
+type="text"
+id="nombre"
+placeholder="Ingresa tu nombre">
+
+<button
+class="btn"
+onclick="iniciarJuego()">
+
+Iniciar Evaluación
+
+</button>
+
+</div>
+
+<div id="juego"
+style="display:none;">
+
+<div class="barra">
+
+<div
+class="progreso"
+id="progreso"></div>
+
+</div>
+
+<h2 id="pregunta"></h2>
+
+<div id="opciones"></div>
+
+<p style="
+margin-top:20px;
+font-size:18px;
+font-weight:600;">
+
+Puntaje:
+<span id="puntaje">0</span>
+
+</p>
+
+<div
+class="resultado"
+id="resultado"></div>
+
+<div
+class="refuerzo"
+id="refuerzo"></div>
+
+<button
+id="btnSiguiente"
+class="btn"
+onclick="siguientePregunta()">
+
+Siguiente
+
+</button>
+
+</div>
+
+<div id="final"
+style="display:none;">
+
+<h2>
+Resultados Finales
+</h2>
+
+<p id="mensajeFinal"></p>
+
+<p id="estadisticas"
+style="
+margin-top:12px;
+line-height:1.8;">
+</p>
+
+<div class="top">
+
+<h3>
+Podio de Jugadores
+</h3>
+
+<div class="podio"
+id="topJugadores"></div>
+
+<div class="lista-top"
+id="listaTop"></div>
+
+</div>
+
+<button
+class="btn"
+onclick="reiniciarJuego()">
+
+Volver a Jugar
+
+</button>
+
+</div>
+
+<div id="panelAdmin"
+style="display:none;">
+
+<h2>
+Panel de Administración
+</h2>
+
+<input
+type="text"
+id="nuevaPregunta"
+placeholder="Nueva pregunta">
+
+<input
+type="text"
+id="op1"
+placeholder="Opción 1">
+
+<input
+type="text"
+id="op2"
+placeholder="Opción 2">
+
+<input
+type="text"
+id="op3"
+placeholder="Opción 3">
+
+<input
+type="text"
+id="op4"
+placeholder="Opción 4">
+
+<select id="respuestaCorrecta">
+
+<option value="">
+Selecciona la respuesta correcta
+</option>
+
+<option value="0">
+Opción 1
+</option>
+
+<option value="1">
+Opción 2
+</option>
+
+<option value="2">
+Opción 3
+</option>
+
+<option value="3">
+Opción 4
+</option>
+
+</select>
+
+<button class="btn"
+onclick="agregarPregunta()">
+
+Agregar Pregunta
+
+</button>
+
+<button
+class="btn-secundario"
+onclick="volverMenuPrincipal()">
+
+Volver al Menú Principal
+
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+let preguntas = JSON.parse(localStorage.getItem("preguntas")) || [
+
+{
+pregunta:"¿Cuál es el hueso más largo del cuerpo humano?",
+opciones:["Fémur","Tibia","Húmero","Radio"],
+respuesta:0,
+explicacion:"El fémur se encuentra en el muslo y conecta la cadera con la rodilla. Es el hueso más largo y resistente del cuerpo humano. Su función principal es soportar el peso corporal y permitir movimientos como caminar, correr y saltar."
+},
+
+{
+pregunta:"¿Qué órgano bombea sangre?",
+opciones:["Pulmón","Riñón","Corazón","Hígado"],
+respuesta:2,
+explicacion:"El corazón es un órgano muscular situado en el centro del tórax, ligeramente hacia la izquierda. Su función es bombear sangre a todo el cuerpo para transportar oxígeno y nutrientes a los tejidos y eliminar sustancias de desecho."
+},
+
+{
+pregunta:"¿Qué órgano filtra la sangre?",
+opciones:["Pulmón","Riñón","Corazón","Páncreas"],
+respuesta:1,
+explicacion:"Los riñones están ubicados en la parte posterior del abdomen, uno a cada lado de la columna vertebral. Filtran la sangre para eliminar desechos y exceso de agua mediante la producción de orina. También ayudan a regular la presión arterial y el equilibrio de minerales."
+},
+
+{
+pregunta:"¿Cuál es el órgano principal del sistema nervioso?",
+opciones:["Riñón","Cerebro","Pulmón","Estómago"],
+respuesta:1,
+explicacion:"El cerebro se encuentra dentro del cráneo y es el centro de control del cuerpo. Procesa la información que llega desde los sentidos y coordina funciones como el pensamiento, la memoria, el lenguaje, las emociones y los movimientos voluntarios."
+},
+
+{
+pregunta:"¿Qué huesos protegen los pulmones?",
+opciones:["Costillas","Radio","Tibia","Clavícula"],
+respuesta:0,
+explicacion:"Las costillas forman la caja torácica, una estructura ósea que rodea y protege órganos vitales como los pulmones y el corazón. Además participan en los movimientos respiratorios al expandirse y contraerse durante la respiración."
+},
+
+{
+pregunta:"¿Dónde se encuentra la tibia?",
+opciones:["Brazo","Pierna","Cuello","Cráneo"],
+respuesta:1,
+explicacion:"La tibia se localiza en la pierna, entre la rodilla y el tobillo. Es uno de los principales huesos que soportan el peso corporal y proporciona estabilidad al caminar, correr y mantenerse de pie."
+},
+
+{
+pregunta:"¿Qué estructura conecta músculos y huesos?",
+opciones:["Ligamentos","Tendones","Nervios","Cartílago"],
+respuesta:1,
+explicacion:"Los tendones son estructuras resistentes formadas por tejido conectivo. Su función es unir los músculos a los huesos y transmitir la fuerza generada por los músculos para producir movimiento."
+},
+
+{
+pregunta:"¿Cuál es el músculo principal de la respiración?",
+opciones:["Trapecio","Diafragma","Glúteo","Bíceps"],
+respuesta:1,
+explicacion:"El diafragma es un músculo en forma de cúpula situado entre el tórax y el abdomen. Cuando se contrae permite que los pulmones se expandan y se llenen de aire. Es el músculo más importante en el proceso respiratorio."
+},
+
+{
+pregunta:"¿Qué órgano produce la bilis?",
+opciones:["Hígado","Pulmón","Riñón","Bazo"],
+respuesta:0,
+explicacion:"El hígado se encuentra en la parte superior derecha del abdomen y es uno de los órganos más importantes del metabolismo. Produce bilis, una sustancia que ayuda a digerir las grasas, además de almacenar nutrientes y eliminar sustancias tóxicas."
+},
+
+{
+pregunta:"¿Cuál es el órgano más grande del cuerpo?",
+opciones:["Piel","Corazón","Pulmón","Cerebro"],
+respuesta:0,
+explicacion:"La piel es el órgano más grande del cuerpo humano y recubre toda su superficie. Actúa como barrera protectora frente a microorganismos, ayuda a regular la temperatura corporal y permite percibir estímulos como el tacto, la presión y el dolor."
+}
+
+];
+
+let preguntasJuego = [];
+let indice = 0;
+let puntaje = 0;
+let correctas = 0;
+let incorrectas = 0;
+
+let tiempoInicio;
+let tiempoFinal;
+
+
+function iniciarJuego(){
+
+    preguntasJuego =
+    [...preguntas]
+    .sort(() => Math.random() - 0.5)
+    .slice(0,10);
+
+    document.getElementById("inicio")
+    .style.display="none";
+
+    document.getElementById("juego")
+    .style.display="block";
+
+    document.getElementById("menuInicio")
+    .style.display="none";
+
+    tiempoInicio = new Date();
+
+    mostrarPregunta();
+
+    guardarEstado();
+
+}
+
+
+
+function mostrarPregunta(){
+
+    actualizarBarra();
+
+    const actual = preguntasJuego[indice];
+
+    document.getElementById("pregunta")
+    .innerText = actual.pregunta;
+
+    const opcionesDiv =
+    document.getElementById("opciones");
+
+    opcionesDiv.innerHTML="";
+
+    let opcionesMezcladas =
+    actual.opciones.map((texto,index)=>({
+
+        texto:texto,
+        indiceOriginal:index
+
+    }));
+
+    opcionesMezcladas.sort(() =>
+    Math.random() - 0.5);
+
+    opcionesMezcladas.forEach((opcion)=>{
+
+        const boton =
+        document.createElement("button");
+
+        boton.classList.add("opcion");
+
+        boton.innerText = opcion.texto;
+
+        boton.onclick =
+        ()=>verificarRespuesta(
+        opcion.indiceOriginal,
+        boton
+        );
+
+        opcionesDiv.appendChild(boton);
+
+    });
+
+}
+
+function verificarRespuesta(seleccion,boton){
+
+    const actual = preguntasJuego[indice];
+
+    const botones =
+    document.querySelectorAll(".opcion");
+
+    botones.forEach(btn=>btn.disabled=true);
+
+    if(seleccion===actual.respuesta){
+
+        boton.classList.add("correcta");
+
+        puntaje +=10;
+
+        correctas++;
+
+        document.getElementById("resultado")
+        .innerText =
+        "Respuesta correcta.";
+
+    }else{
+
+        boton.classList.add("incorrecta");
+
+        botones.forEach((btn,index)=>{
+
+            if(
+                btn.innerText ===
+                actual.opciones[actual.respuesta]
+            ){
+
+                btn.classList.add("correcta");
+            }
+
+        });
+
+        puntaje -=5;
+
+        incorrectas++;
+
+        document.getElementById("resultado")
+        .innerText =
+        "Respuesta incorrecta.";
+    }
+
+    document.getElementById("refuerzo")
+    .innerText =
+    actual.explicacion;
+
+    document.getElementById("puntaje")
+    .innerText =
+    puntaje;
+
+    indice++;
+    guardarEstado();
+    document.getElementById("btnSiguiente")
+    .style.display =
+    "block";
+
+
+}
+
+function siguientePregunta(){
+
+    document.getElementById("resultado")
+    .innerHTML="";
+
+    document.getElementById("refuerzo")
+    .innerHTML="";
+
+    document.getElementById("btnSiguiente")
+    .style.display="none";
+
+        guardarEstado();
+
+    if(indice < preguntasJuego.length){
+
+        mostrarPregunta();
+
+    }else{
+
+        finalizarJuego();
+    }
+
+}
+
+function finalizarJuego(){
+
+    document.getElementById("juego")
+    .style.display="none";
+
+    document.getElementById("final")
+    .style.display="block";
+
+    tiempoFinal = new Date();
+
+    const tiempoTotal =
+    Math.floor(
+    (tiempoFinal - tiempoInicio) / 1000
+    );
+
+    const minutos =
+    Math.floor(tiempoTotal / 60);
+
+    const segundos =
+    tiempoTotal % 60;
+
+    document.getElementById("estadisticas")
+    .innerHTML =
+    `
+    Respuestas correctas: ${correctas}<br>
+    Respuestas incorrectas: ${incorrectas}<br>
+    Puntaje final: ${puntaje}<br>
+    Tiempo total:
+    ${minutos}m ${segundos}s
+    `;
+
+    guardarTopJugadores(minutos,segundos);
+
+    localStorage.removeItem("estadoJuego");
+
+}
+
+function cargarEstado(){
+
+    const estado =
+    JSON.parse(
+    localStorage.getItem("estadoJuego")
+    );
+
+    if(estado){
+
+        preguntasJuego =
+        estado.preguntasJuego;
+
+        indice =
+        estado.indice;
+
+        puntaje =
+        estado.puntaje;
+
+        correctas =
+        estado.correctas;
+
+        incorrectas =
+        estado.incorrectas;
+
+        tiempoInicio =
+        new Date(
+        estado.tiempoInicio
+        );
+
+        document.getElementById("inicio")
+        .style.display="none";
+
+        document.getElementById("juego")
+        .style.display="block";
+
+        document.getElementById("menuInicio")
+        .style.display="none";
+
+        document.getElementById("puntaje")
+        .innerText =
+        puntaje;
+
+        if(estado.nombre){ 
+
+            document.getElementById("nombre").value = estado.nombre; 
+            
+        }
+
+    if(indice < preguntasJuego.length){
+
+        mostrarPregunta();
+
+    }else{
+
+        finalizarJuego();
+    }
+    }
+}
+
+
+function guardarEstado(){
+
+    const estado = {
+        nombre:
+        document.getElementById("nombre").value,
+        viendoExplicacion:
+        document.getElementById("btnSiguiente").style.display === "block",
+        preguntasJuego,
+        indice,
+        puntaje,
+        correctas,
+        incorrectas,
+        tiempoInicio:
+        tiempoInicio
+        ? tiempoInicio.getTime()
+        : null
+
+    };
+
+    localStorage.setItem(
+    "estadoJuego",
+    JSON.stringify(estado)
+    );
+}
+
+
+function actualizarBarra(){
+
+    let progreso =
+    
+    (indice / preguntasJuego.length) * 100;
+
+    document.getElementById("progreso")
+    .style.width =
+    progreso + "%";
+}
+
+function guardarTopJugadores(minutos,segundos){
+
+    let top =
+    JSON.parse(localStorage.getItem("topJugadores")) || [];
+
+    top.push({
+
+        nombre:
+        document.getElementById("nombre").value,
+
+        puntaje:puntaje,
+
+        tiempo:
+        `${minutos}m ${segundos}s`
+    });
+
+    top.sort((a,b)=>b.puntaje-a.puntaje);
+
+    top = top.slice(0,10);
+
+    localStorage.setItem(
+    "topJugadores",
+    JSON.stringify(top)
+    );
+
+    mostrarTopJugadores(top);
+}
+
+function mostrarTopJugadores(top){
+
+    const podio =
+    document.getElementById("topJugadores");
+
+    const lista =
+    document.getElementById("listaTop");
+
+    podio.innerHTML="";
+    lista.innerHTML="";
+
+    const posiciones =
+    ["segundo","primero","tercero"];
+
+    const orden =
+    [1,0,2];
+
+    orden.forEach((pos,index)=>{
+
+        if(top[pos]){
+
+            const jugador = top[pos];
+
+            const columna =
+            document.createElement("div");
+
+            columna.classList.add("podio-columna");
+
+            columna.innerHTML =
+            `
+            <div class="nombre-podio">
+            ${jugador.nombre}
+            </div>
+
+            <div class="podio-item ${posiciones[index]}">
+
+                <div class="posicion">
+                #${pos+1}
+                </div>
+
+                <div class="puntos">
+                ${jugador.puntaje} pts
+                </div>
+
+                <div style="margin-top:10px;">
+                ${jugador.tiempo}
+                </div>
+
+            </div>
+            `;
+
+            podio.appendChild(columna);
+        }
+
+    });
+
+    top.slice(3).forEach((jugador,index)=>{
+
+        const item =
+        document.createElement("div");
+
+        item.classList.add("item-top");
+
+        item.innerHTML =
+        `
+        <div>
+        #${index+4} - ${jugador.nombre}
+        </div>
+
+        <div>
+        ${jugador.puntaje} pts |
+        ${jugador.tiempo}
+        </div>
+        `;
+
+        lista.appendChild(item);
+
+    });
+}
+
+function reiniciarJuego(){
+
+    localStorage.removeItem("estadoJuego");
+
+    location.reload();
+}
+
+function mostrarPanelAdmin(){
+
+    const password =
+    document.getElementById("passwordAdmin")
+    .value;
+
+    if(password==="admin"){
+
+        document.getElementById("inicio")
+        .style.display="none";
+
+        document.getElementById("panelAdmin")
+        .style.display="block";
+
+    }else{
+
+        alert("Contraseña incorrecta.");
+    }
+}
+
+function volverMenuPrincipal(){
+
+    document.getElementById("panelAdmin")
+    .style.display="none";
+
+    document.getElementById("inicio")
+    .style.display="block";
+}
+
+
+function agregarPregunta(){
+
+    const pregunta =
+    document.getElementById("nuevaPregunta")
+    .value;
+
+    const op1 =
+    document.getElementById("op1")
+    .value;
+
+    const op2 =
+    document.getElementById("op2")
+    .value;
+
+    const op3 =
+    document.getElementById("op3")
+    .value;
+
+    const op4 =
+    document.getElementById("op4")
+    .value;
+
+    const respuesta =
+    parseInt(
+    document.getElementById("respuestaCorrecta")
+    .value
+    );
+
+    if(
+        pregunta==="" ||
+        op1==="" ||
+        op2==="" ||
+        op3==="" ||
+        op4==="" ||
+        isNaN(respuesta)
+    ){
+
+        alert(
+        "Completa todos los campos."
+        );
+
+        return;
+    }
+
+    preguntas.push({
+
+        pregunta:pregunta,
+
+        opciones:[
+        op1,
+        op2,
+        op3,
+        op4
+        ],
+
+        respuesta:respuesta,
+
+        imagen:
+        "https://upload.wikimedia.org/wikipedia/commons/6/6f/Human_body_features.png",
+
+        explicacion:
+        "Pregunta agregada por el administrador."
+    });
+
+    localStorage.setItem(
+    "preguntas",
+    JSON.stringify(preguntas)
+    );
+
+    alert(
+    "Pregunta agregada correctamente."
+    );
+
+    document.getElementById("nuevaPregunta")
+    .value = "";
+
+    document.getElementById("op1")
+    .value = "";
+
+    document.getElementById("op2")
+    .value = "";
+
+    document.getElementById("op3")
+    .value = "";
+
+    document.getElementById("op4")
+    .value = "";
+
+    document.getElementById("respuestaCorrecta")
+    .value = "";
+}
+
+window.onload = function(){
+
+    cargarEstado();
+
+    const top =
+    JSON.parse(
+    localStorage.getItem("topJugadores")
+    ) || [];
+
+    mostrarTopJugadores(top);
+};
+
+</script>
+
+</body>
+</html>
