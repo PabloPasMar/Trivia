@@ -1182,6 +1182,31 @@ async function cargarRankingGlobal(){
 
 }
 
+async function cargarPreguntasFirebase(){
+
+    const snapshot =
+    await getDocs(
+        collection(window.db,"preguntas")
+    );
+
+    let preguntasFirebase = [];
+
+    snapshot.forEach((doc)=>{
+
+        preguntasFirebase.push(
+        doc.data()
+        );
+
+    });
+
+    preguntas = [
+        ...preguntas,
+        ...preguntasFirebase
+    ];
+
+}
+
+
 
 
 function mostrarTopJugadores(top){
@@ -1391,19 +1416,22 @@ async function agregarPregunta(){
 
 window.onload = async function(){
 
-    cargarEstado();
-
     setTimeout(async ()=>{
 
         if(window.db){
+
+            await cargarPreguntasFirebase();
 
             await cargarRankingGlobal();
 
         }
 
+        cargarEstado();
+
     },1000);
 
 };
+
 
 
 
