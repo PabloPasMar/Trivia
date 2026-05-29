@@ -995,7 +995,7 @@ function siguientePregunta(){
 
 }
 
-function finalizarJuego(){
+async function finalizarJuego(){
 
     document.getElementById("juego")
     .style.display="none";
@@ -1026,7 +1026,7 @@ function finalizarJuego(){
     ${minutos}m ${segundos}s
     `;
 
-    guardarTopJugadores(minutos,segundos);
+    await guardarTopJugadores(minutos,segundos);
 
     localStorage.removeItem("estadoJuego");
 
@@ -1129,33 +1129,60 @@ function actualizarBarra(){
     progreso + "%";
 }
 
-function guardarTopJugadores(minutos,segundos){
+async function guardarTopJugadores(minutos,segundos){
 
-    let top =
-    JSON.parse(localStorage.getItem("topJugadores")) || [];
+    await addDoc(
+        collection(window.db,"ranking"),
+        {
+            nombre:
+            document.getElementById("nombre").value,
 
-    top.push({
+            puntaje:
+            puntaje,
 
-        nombre:
-        document.getElementById("nombre").value,
+            tiempo:
+            `${minutos}m ${segundos}s`,
 
-        puntaje:puntaje,
+            fecha:
+            Date.now()
+        }
+    );
 
-        tiempo:
-        `${minutos}m ${segundos}s`
+    alert(
+    "Resultado guardado globalmente."
+    );
+
+}
+
+async function cargarRankingGlobal(){
+
+    const snapshot =
+    await getDocs(
+        collection(window.db,"ranking")
+    );
+
+    let top = [];
+
+    snapshot.forEach((doc)=>{
+
+        top.push(
+        doc.data()
+        );
+
     });
 
-    top.sort((a,b)=>b.puntaje-a.puntaje);
+    top.sort(
+        (a,b)=>
+        b.puntaje - a.puntaje
+    );
 
     top = top.slice(0,10);
 
-    localStorage.setItem(
-    "topJugadores",
-    JSON.stringify(top)
-    );
-
     mostrarTopJugadores(top);
+
 }
+
+
 
 function mostrarTopJugadores(top){
 
@@ -1274,7 +1301,8 @@ function volverMenuPrincipal(){
 }
 
 
-function agregarPregunta(){
+async function agregarPregunta(){
+
 
     const pregunta =
     document.getElementById("nuevaPregunta")
@@ -1318,30 +1346,24 @@ function agregarPregunta(){
         return;
     }
 
-    preguntas.push({
+    await addDoc(
+        collection(window.db, "preguntas"),
+        {
+            pregunta: pregunta,
+            opciones: [
+                op1,
+                op2,
+                op3,
+                op4
+            ],
+            respuesta: respuesta,
+            explicacion:
+            "Pregunta agregada por el administrador."
 
-        pregunta:pregunta,
-
-        opciones:[
-        op1,
-        op2,
-        op3,
-        op4
-        ],
-
-        respuesta:respuesta,
-
-        imagen:
-        "https://upload.wikimedia.org/wikipedia/commons/6/6f/Human_body_features.png",
-
-        explicacion:
-        "Pregunta agregada por el administrador."
-    });
-
-    localStorage.setItem(
-    "preguntas",
-    JSON.stringify(preguntas)
+        }
     );
+
+
 
     alert(
     "Pregunta agregada correctamente."
@@ -1366,17 +1388,25 @@ function agregarPregunta(){
     .value = "";
 }
 
-window.onload = function(){
+
+window.onload = async function(){
 
     cargarEstado();
 
-    const top =
-    JSON.parse(
-    localStorage.getItem("topJugadores")
-    ) || [];
+    setTimeout(async ()=>{
 
-    mostrarTopJugadores(top);
+        if(window.db){
+
+            await cargarRankingGlobal();
+
+        }
+
+    },1000);
+
 };
+
+
+
 
 </script>
 
@@ -1411,6 +1441,20 @@ window.addDoc = addDoc;
 window.getDocs = getDocs;
 
 console.log("Firebase conectado");
+window.testFirebase = async function(){
+
+    await addDoc(
+        collection(window.db,"ranking"),
+        {
+            nombre:"prueba",
+            puntaje:100
+        }
+    );
+
+    console.log("Documento guardado");
+
+}
+
 
 </script>
 
